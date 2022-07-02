@@ -14,7 +14,7 @@ cp /var/cuda-repo-ubuntu2204-11-7-local/cuda-*-keyring.gpg /usr/share/keyrings/
 apt-get update
 apt-get install -y cuda
 mkdir -p /render/output
-cd
+cd /root
 wget https://766730.selcdn.ru/scene_storage/highway_scene.blend
 cd blender-3.2.0-linux-x64
 ./blender -b /root/highway_scene.blend -E CYCLES -o /render/output/ -noaudio -s 1 -e 2 -a -- --cycles-device CUDA+CPU
