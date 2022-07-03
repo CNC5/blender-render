@@ -20,4 +20,4 @@ cd blender-3.2.0-linux-x64
 ./blender -b /root/highway_scene.blend -E CYCLES -o /render/output/ -noaudio -s 1 -e 200 -a -- --cycles-device CUDA+CPU
 tar -zcvf render_output.tar.gz /render/output/
 aws configure --endpoint-url=https://s3.storage.selcloud.ru
-aws --endpoint-url=https://s3.storage.selcloud.ru s3 cp render_output.tar.xz s3://scene_storage/
+aws --endpoint-url=https://s3.storage.selcloud.ru s3 cp render_output.tar.gz s3://scene_storage/
