@@ -1,3 +1,5 @@
+echo 'Render using(CUDA,OPTIX,METAL(+CPU)):'
+read REND_WITH
 apt-get update -y
 apt-get install -y blender tmux htop awscli
 wget https://mirrors.dotsrc.org/blender/release/Blender3.2/blender-3.2.0-linux-x64.tar.xz
@@ -17,7 +19,7 @@ mkdir -p /render/output
 cd /root
 wget https://766730.selcdn.ru/scene_storage/highway_scene.blend
 cd blender-3.2.0-linux-x64
-./blender -b /root/highway_scene.blend -E CYCLES -o /render/output/ -noaudio -s 1 -e 200 -a -- --cycles-device CUDA+CPU
+./blender -b /root/highway_scene.blend -E CYCLES -o /render/output/ -noaudio -s 1 -e 200 -a -- --cycles-device $REND_WITH
 tar -zcvf render_output.tar.gz /render/output/
 aws configure --endpoint-url=https://s3.storage.selcloud.ru
 aws --endpoint-url=https://s3.storage.selcloud.ru s3 cp render_output.tar.gz s3://scene_storage/
