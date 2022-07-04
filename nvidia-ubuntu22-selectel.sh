@@ -28,7 +28,7 @@ then
   exit 1
 fi
 
-echo 'Please wait for the aws to install and enter credentials'
+echo 'Please wait for the AWS to install and enter credentials'
 sleep 3
 
 # Basic utils install
