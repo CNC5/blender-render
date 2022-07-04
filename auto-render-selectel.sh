@@ -1,3 +1,12 @@
+echo 'Warning: this script is designed to work with selctel infrastructure only, input anything if you understand'
+read sane
+
+if [ -z "$sane" ]
+then
+  echo 'Quit'
+  exit 1
+fi
+
 echo 'Script will now try loading the scene from storage container(scene must be in the root of the container), input the name(for example "scene_storage")'
 read cont_name
 echo 'Enter the scene filename(*.blend) and other render params'
@@ -16,7 +25,7 @@ then
 fi
 
 echo 'Please wait for the aws to install and enter credentials'
-sleep 1
+sleep 3
 apt-get update -y
 apt-get install -y blender tmux htop awscli
 aws configure --endpoint-url=https://s3.storage.selcloud.ru
