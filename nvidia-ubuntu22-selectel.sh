@@ -15,6 +15,8 @@ echo 'Start frame:'
 read s_frame
 echo 'End frame'
 read e_frame
+echo 'Render engine(CYCLES)'
+read rend_eng
 echo 'Render using(CUDA,OPTIX(+CPU)):'
 read rend_with
 
@@ -45,7 +47,7 @@ apt-get install -y cuda
 mkdir -p /render/output
 cd /root
 aws --endpoint-url=https://s3.storage.selcloud.ru s3 cp "s3://$cont_name/$scene_name" "$scene_name"
-/root/blender-3.2.0-linux-x64/blender -b "/root/$scene_name" -E CYCLES -o /render/output/ -noaudio -s "$s_frame" -e "$e_frame" -a -- --cycles-device "$rend_with"
+/root/blender-3.2.0-linux-x64/blender -b "/root/$scene_name" -E "$rend_eng" -o /render/output/ -noaudio -s "$s_frame" -e "$e_frame" -a -- --cycles-device "$rend_with"
 echo 'Output frames will be packed in an archive and uploaded to the container'
 tar -zcvf render_output.tar.gz /render/output/
 aws --endpoint-url=https://s3.storage.selcloud.ru s3 cp render_output.tar.gz "s3://$cont_name/" && echo 'Done'
