@@ -10,11 +10,11 @@
 
 5. Введите команды:
 
-`apt update -y
-apt install -y git
-git clone https://github.com/CNC5/blender-render
-chmod +x ./blender-render/nvidia-ubuntu22-selectel.sh
-bash ./blender-render/nvidia-ubuntu22-selectel.sh
+`apt update -y\n
+apt install -y git\n
+git clone https://github.com/CNC5/blender-render\n
+chmod +x ./blender-render/nvidia-ubuntu22-selectel.sh\n
+bash ./blender-render/nvidia-ubuntu22-selectel.sh\n
 `
 6. Ответьте на вопросы, чтобы задать параметры. В скобках указаны допустимые значения. Имя для aws надо вводить в формате '<номер аккаунта>_<имя пользователя>'.
 
