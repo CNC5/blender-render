@@ -21,13 +21,13 @@ echo 'Render engine(CYCLES)'
 read rend_eng
 echo 'Render using(CUDA,OPTIX(+CPU)):'
 read rend_with
-#
+
 if [ -z "$cont_name" ] | [ -z "$scene_name" ] | [ -z "$s_frame" ] | [ -z "$e_frame" ] | [ -z "$rend_with" ]
 then
   echo 'Missing input parameter'
   exit 1
 fi
-#
+
 echo 'Please wait for the aws to install and enter credentials'
 sleep 3
 
