@@ -1,7 +1,25 @@
+echo 'Script will now try loading the scene from storage container(scene must be in the root of the container), input the name(for example "scene_storage")'
+read cont_name
+echo 'Enter the scene filename(*.blend) and other render params'
+read scene_name
+echo 'Start frame:'
+read s_frame
+echo 'End frame'
+read e_frame
 echo 'Render using(CUDA,OPTIX,METAL(+CPU)):'
-read REND_WITH
+read rend_with
+
+if [ -z "$cont_name" ] | [ -z "$scene_name" ] | [ -z "$s_frame" ] | [ -z "$e_frame" ] | [ -z "$rend_with" ]
+then
+  echo 'Missing input parameter'
+  exit 1
+fi
+
+echo 'Please wait for the aws to install and enter credentials'
+sleep 1
 apt-get update -y
 apt-get install -y blender tmux htop awscli
+aws configure --endpoint-url=https://s3.storage.selcloud.ru
 wget https://mirrors.dotsrc.org/blender/release/Blender3.2/blender-3.2.0-linux-x64.tar.xz
 tar -xpvf blender-3.2.0-linux-x64.tar.xz
 rm blender-3.2.0-linux-x64.tar.xz
@@ -17,9 +35,8 @@ apt-get update -y
 apt-get install -y cuda
 mkdir -p /render/output
 cd /root
-wget https://766730.selcdn.ru/scene_storage/highway_scene.blend
-cd blender-3.2.0-linux-x64
-./blender -b /root/highway_scene.blend -E CYCLES -o /render/output/ -noaudio -s 1 -e 200 -a -- --cycles-device $REND_WITH
+aws --endpoint-url=https://s3.storage.selcloud.ru s3 cp "s3://$cont_name/$scene_name" "$scene_name"
+/root/blender-3.2.0-linux-x64/blender -b "/root/$scene_name" -E CYCLES -o /render/output/ -noaudio -s "$s_frame" -e "$e_frame" -a -- --cycles-device "$rend_with"
+echo 'Output frames will be packed in an archive and uploaded to the container'
 tar -zcvf render_output.tar.gz /render/output/
-aws configure --endpoint-url=https://s3.storage.selcloud.ru
-aws --endpoint-url=https://s3.storage.selcloud.ru s3 cp render_output.tar.gz s3://scene_storage/
+aws --endpoint-url=https://s3.storage.selcloud.ru s3 cp render_output.tar.gz "s3://$cont_name/" && echo 'Done'
