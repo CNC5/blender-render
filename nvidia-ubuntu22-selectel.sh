@@ -15,7 +15,7 @@ echo 'Start frame:'
 read s_frame
 echo 'End frame'
 read e_frame
-echo 'Render using(CUDA,OPTIX,METAL(+CPU)):'
+echo 'Render using(CUDA,OPTIX(+CPU)):'
 read rend_with
 
 if [ -z "$cont_name" ] | [ -z "$scene_name" ] | [ -z "$s_frame" ] | [ -z "$e_frame" ] | [ -z "$rend_with" ]
