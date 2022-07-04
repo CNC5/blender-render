@@ -1,7 +1,7 @@
 # Warning
 echo 'Warning: this script is designed to work with selectel infrastructure only, input anything if you understand'
 read sane
-#
+
 if [ -z "$sane" ]
 then
   echo 'Quit'
