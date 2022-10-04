@@ -33,7 +33,7 @@ sleep 3
 
 # Basic utils install
 apt-get update -y
-apt-get install -y blender tmux htop awscli
+apt-get install -y blender awscli
 
 # AWS configuration
 aws configure --endpoint-url=https://s3.storage.selcloud.ru
